@@ -122,7 +122,7 @@ public class Searches {
 
     public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {//Prueba6Git
         return Stream.empty();
-    }
+    }//newprove
 
     public Stream<Double> findDecimalFractionByUserName(String name) { //Preguntar profesor
         return Stream.empty();
