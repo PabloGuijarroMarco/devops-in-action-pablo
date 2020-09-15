@@ -13,5 +13,3 @@
    1. Marcar **Create Project from external model**, elegir **Maven**.
    1. **Next** … **Finish**.
 
-
-jeje
