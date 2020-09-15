@@ -120,7 +120,7 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {//Prueba4Git
+    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {//Prueba5Git
         return Stream.empty();
     }
 
