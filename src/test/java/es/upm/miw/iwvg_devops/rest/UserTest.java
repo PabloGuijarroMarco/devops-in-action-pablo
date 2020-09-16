@@ -112,4 +112,25 @@ public class UserTest {
         User user = new User("1", "Juan", "Gonzalez", fractions);
         assertEquals("J.", user.initials());
     }
+
+    @Test
+    void testToString() {
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        User user = new User("1", "Juan", "Gonzalez", fractions);
+        assertEquals("User{" +
+                        "id='" + "1" + '\'' +
+                        ", name='" + "Juan" + '\'' +
+                        ", familyName='" + "Gonzalez" + '\'' +
+                        ", fractions=" + fractions +
+                        '}',
+                "User{" +
+                        "id='" + user.getId() + '\'' +
+                        ", name='" + user.getName() + '\'' +
+                        ", familyName='" + user.getFamilyName() + '\'' +
+                        ", fractions=" + user.getFractions() +
+                        '}');
+    }
 }

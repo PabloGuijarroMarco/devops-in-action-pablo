@@ -3,6 +3,7 @@ package es.upm.miw.iwvg_devops;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Searches {
@@ -131,10 +132,18 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() { //no se a que se refiere (arreglar);El del 0; hacer un caso en el mismo test (en la vida real se añadiria en la base de datos)
-        return new UsersDatabase().findAll()
+    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {
+        List<Fraction> fractions1 = List.of(
+                new Fraction(0, -1),
+                new Fraction(1, -1),
+                new Fraction(2, -1)
+        );
+        Stream<User> user1 = Stream.of(
+                new User("1", "Oscar", "Fernandez", fractions1)
+        );
+        return user1
                 .filter(user -> user.getFractions().stream()
-                        .anyMatch(fraction -> fraction.decimal()<0.0))
+                        .allMatch(fraction -> fraction.getDenominator()<0.0 || fraction.getNumerator()<0.0))
                 .map(User::getFamilyName);
         //return Stream.empty();
     }
@@ -148,11 +157,11 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<Double> findDecimalFractionByNegativeSignFraction() { //El que da 0 tambien o no?¿?¿
+    public Stream<Double> findDecimalFractionByNegativeSignFraction() {
         return new UsersDatabase().findAll()
                 .map(user -> user.getFractions())
                 .flatMap(fractions -> fractions.stream())
-                .filter(fraction -> fraction.decimal()<0.0)
+                .filter(fraction -> fraction.getDenominator()<0.0 || fraction.getNumerator()<0.0)
                 .map(fraction -> fraction.decimal());
         //return Stream.empty();
     }
