@@ -148,7 +148,7 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<Double> findDecimalFractionByNegativeSignFraction() { //El que da 0 tambien o no ?¿?¿
+    public Stream<Double> findDecimalFractionByNegativeSignFraction() { //El que da 0 tambien porque es negativa la fraccion
         return new UsersDatabase().findAll()
                 .map(user -> user.getFractions())
                 .flatMap(fractions -> fractions.stream())
