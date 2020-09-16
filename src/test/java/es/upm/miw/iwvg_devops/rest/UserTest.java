@@ -60,14 +60,56 @@ public class UserTest {
 
     @Test
     void testGetFractions() {
-        /*List<Fraction> fractions = new ArrayList<>(2);
-        fractions.set(0, new Fraction(0, 1));
-        fractions.set(0, new Fraction(2, 4));
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        fractions.add(f2);
         User user = new User("1", "Juan", "Gonzalez", fractions);
-        List<Fraction> Fractions2=user.getFractions();
-        System.out.println(Fractions2.toArray());
-        assertEquals(fractions.toArray(), Fractions2.toArray());*/
+        assertEquals(fractions, user.getFractions());
     }
 
+    @Test
+    void testSetFractions() {
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        User user = new User("1", "Juan", "Gonzalez", fractions);
+        fractions.add(f2);
+        user.setFractions(fractions);
+        assertEquals(fractions, user.getFractions());
+    }
 
+    @Test
+    void testAddFraction() {
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        User user = new User("1", "Juan", "Gonzalez", fractions);
+        user.addFraction(f2);
+        user.setFractions(fractions);
+        assertEquals(fractions, user.getFractions());
+    }
+
+    @Test
+    void testFullName() {
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        User user = new User("1", "Juan", "Gonzalez", fractions);
+        assertEquals("Juan Gonzalez", user.fullName());
+    }
+
+    @Test
+    void testInitials() {
+        List<Fraction> fractions = new ArrayList<>(2);
+        Fraction f1 = new Fraction(3,2);
+        Fraction f2 = new Fraction(3,3);
+        fractions.add(f1);
+        User user = new User("1", "Juan", "Gonzalez", fractions);
+        assertEquals("J.", user.initials());
+    }
 }

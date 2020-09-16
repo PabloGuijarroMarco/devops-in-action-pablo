@@ -67,18 +67,17 @@ public class Searches {
         //return null;
     }
 
-    public Double findFirstDecimalFractionByUserName(String name) { //Preguntar profesor ; lo que quiere es el valor double de la primera fraccion (dividir numerador entre denominador)
+    public Double findFirstDecimalFractionByUserName(String name) {
         return new UsersDatabase().findAll()
                 .filter(user -> user.getName().equals(name))
                 .map(user -> user.getFractions())
-                .flatMap(fractions -> fractions.stream())
-                .filter(fr -> fr.getDenominator() == 1 )//% 10 == 0) //Ver si hacer metodo
+                .flatMap(fractions -> fractions.stream()).limit(1)
                 .mapToDouble(fraction -> fraction.getNumerator()/fraction.getDenominator()).sum();
 
         //return null;
     }
 
-    public Stream<String> findUserIdByAllProperFraction() { //Preguntar profesor; peek ver si con esto se arregla
+    public Stream<String> findUserIdByAllProperFraction() {
         return new UsersDatabase().findAll()
                 .filter(user -> user.getFractions().stream()
                         .allMatch(fraction -> fraction.ProperFraction()))
@@ -86,8 +85,15 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<Double> findDecimalImproperFractionByUserName(String name) { //Aclarar lo de decimal antes de hacer
-        return Stream.empty();
+    public Stream<Double> findDecimalImproperFractionByUserName(String name) {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getName().equals(name))
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream())
+                .filter(fr -> fr.ImproperFraction())
+                .map(fraction -> fraction.decimal());
+
+        //return Stream.empty();
     }
 
     public Fraction findFirstProperFractionByUserId(String id) {
@@ -100,7 +106,7 @@ public class Searches {
         //return null;
     }
 
-    public Stream<String> findUserFamilyNameByImproperFraction() { //Preguntar si es any al profesor
+    public Stream<String> findUserFamilyNameByImproperFraction() {
         return new UsersDatabase().findAll()
                 .filter(user -> user.getFractions().stream()
                         .anyMatch(fraction -> fraction.ImproperFraction()))
@@ -109,7 +115,12 @@ public class Searches {
     }
 
     public Fraction findHighestFraction() {
-        return null;
+        return new UsersDatabase().findAll()
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream())
+                .reduce((fraction, fraction2) -> fraction2.Biggest(fraction, fraction2))
+                .get();
+        //return null;
     }
 
     public Stream<String> findUserNameByAnyImproperFraction() {
@@ -120,24 +131,50 @@ public class Searches {
         //return Stream.empty();
     }
 
-    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() {//Prueba7Git
-        return Stream.empty();
-    }//newprove
-//solve2
-    public Stream<Double> findDecimalFractionByUserName(String name) { //Preguntar profesor
-        return Stream.empty();
+    public Stream<String> findUserFamilyNameByAllNegativeSignFractionDistinct() { //no se a que se refiere (arreglar);El del 0; hacer un caso en el mismo test (en la vida real se añadiria en la base de datos)
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getFractions().stream()
+                        .anyMatch(fraction -> fraction.decimal()<0.0))
+                .map(User::getFamilyName);
+        //return Stream.empty();
     }
 
-    public Stream<Double> findDecimalFractionByNegativeSignFraction() {
-        return Stream.empty();
+    public Stream<Double> findDecimalFractionByUserName(String name) {
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getName().equals(name))
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream())
+                .map(fraction -> fraction.decimal());
+        //return Stream.empty();
+    }
+
+    public Stream<Double> findDecimalFractionByNegativeSignFraction() { //El que da 0 tambien o no?¿
+        return new UsersDatabase().findAll()
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream())
+                .filter(fraction -> fraction.decimal()<0.0)
+                .map(fraction -> fraction.decimal());
+        //return Stream.empty();
     }
 
     public Fraction findFractionAdditionByUserId(String id) {
-        return null;
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getId().equals(id))
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream())
+                .reduce((fraction, fraction2) -> fraction2.fractionAddition(fraction, fraction2))
+                .get();
+        //return null;
     }
 
     public Fraction findFirstFractionSubtractionByUserName(String name) {
-        return null;
+        return new UsersDatabase().findAll()
+                .filter(user -> user.getName().equals(name))
+                .map(user -> user.getFractions())
+                .flatMap(fractions -> fractions.stream()).limit(2)
+                .reduce((fraction, fraction2) -> fraction2.fractionSubtraction(fraction, fraction2))
+                .get();
+        //return null;
     }
 
 }
