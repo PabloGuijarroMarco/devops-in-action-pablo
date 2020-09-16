@@ -76,4 +76,31 @@ public class FractionTest {
         fr3=fr3.fractionDivision(fraction,fraction2);
         assertEquals(0.375, fr3.decimal());
     }
+
+    @Test
+    void testBiggest(){
+        Fraction fraction1 = new Fraction(4, 3);
+        Fraction fraction2 = new Fraction(4, 2);
+        assertEquals(fraction2, fraction1.Biggest(fraction1,fraction2));
+    }
+
+    @Test
+    void testFractionAddition() {
+        Fraction fraction = new Fraction(1, 2);
+        Fraction fraction2 = new Fraction(2, 1);
+        Fraction fr3 = new Fraction(5, 2);
+        Fraction fr4 = new Fraction(2, 2);
+        fr4 = fr4.fractionAddition(fraction, fraction2);
+        assertEquals(fr3.decimal(), fr4.decimal());
+    }
+
+    @Test
+    void testFractionSubtraction() {
+        Fraction fraction = new Fraction(1, 2);
+        Fraction fraction2 = new Fraction(2, 1);
+        Fraction fr3 = new Fraction(-3, 2);
+        Fraction fr4 = new Fraction(2, 2);
+        fr4 = fr4.fractionSubtraction(fraction, fraction2);
+        assertEquals(fr3.decimal(), fr4.decimal());
+    }
 }

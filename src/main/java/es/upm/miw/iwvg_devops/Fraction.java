@@ -79,6 +79,41 @@ public class Fraction {
         return frFinal;
     }
 
+    public Fraction Biggest(Fraction fr1, Fraction fr2){
+        Fraction biggest;
+        if(fr1.getDenominator()==0){
+            biggest=fr2;
+        }else if(fr2.getDenominator()==0){
+            biggest=fr1;
+        }else{
+            double one=fr1.numerator/fr1.denominator;
+            double two=fr2.numerator/fr2.denominator;
+            if(one>two){
+                biggest = fr1;
+            }else{
+                biggest = fr2;
+            }
+            if(one==two){
+                biggest = fr1;
+            }
+        }
+        return biggest;
+    }
+
+    public Fraction fractionAddition(Fraction fr1, Fraction fr2){
+        int num=fr1.numerator*fr2.denominator+fr2.numerator*fr1.denominator;
+        int den=fr1.denominator*fr2.denominator;
+        Fraction frFinal = new Fraction(num,den);
+        return frFinal;
+    }
+
+    public Fraction fractionSubtraction(Fraction fr1, Fraction fr2){
+        int num=fr1.numerator*fr2.denominator-fr2.numerator*fr1.denominator;
+        int den=fr1.denominator*fr2.denominator;
+        Fraction frFinal = new Fraction(num,den);
+        return frFinal;
+    }
+
     @Override
     public String toString() {
         return "Fraction{" +
