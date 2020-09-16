@@ -103,4 +103,18 @@ public class FractionTest {
         fr4 = fr4.fractionSubtraction(fraction, fraction2);
         assertEquals(fr3.decimal(), fr4.decimal());
     }
+
+    @Test
+    void testToString() {
+        Fraction f1 = new Fraction(3,2);
+
+        assertEquals("Fraction{" +
+                        "numerator=" + 3 +
+                        ", denominator=" + 2 +
+                        '}',
+                "Fraction{" +
+                        "numerator=" + f1.getNumerator() +
+                        ", denominator=" + f1.getDenominator() +
+                        '}');
+    }
 }

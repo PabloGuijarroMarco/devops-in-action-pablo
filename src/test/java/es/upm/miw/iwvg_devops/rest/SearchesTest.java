@@ -115,7 +115,7 @@ class SearchesTest {
 
     @Test
     void testFindUserFamilyNameByAllNegativeSignFractionDistinct() {
-        assertEquals(List.of("Blanco", "López"), new Searches().findUserFamilyNameByAllNegativeSignFractionDistinct()
+        assertEquals(List.of("Fernandez"), new Searches().findUserFamilyNameByAllNegativeSignFractionDistinct()
                 .collect(Collectors.toList()));
     }
 
@@ -127,7 +127,7 @@ class SearchesTest {
 
     @Test
     void testFindDecimalFractionByNegativeSignFraction() {
-        assertEquals(List.of(-0.2, -0.5), new Searches().findDecimalFractionByNegativeSignFraction()
+        assertEquals(List.of(-0.2, -0.5, -0.0), new Searches().findDecimalFractionByNegativeSignFraction()
                 .collect(Collectors.toList()));
     }
 
